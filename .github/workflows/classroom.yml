@@ -1,6 +1,5 @@
 name: Autograding Tests
 'on':
-- push
 - workflow_dispatch
 - repository_dispatch
 permissions:
@@ -16,15 +15,13 @@ jobs:
       uses: actions/checkout@v4
     - name: Test
       id: test
-      uses: education/autograding-command-grader@v1
+      uses: classroom-resources/autograding-python-grader@v1
       with:
-        test-name: Test
-        setup-command: ''
-        command: python3 test.py
         timeout: 10
         max-score: 1
+        setup-command: ''
     - name: Autograding Reporter
-      uses: education/autograding-grading-reporter@v1
+      uses: classroom-resources/autograding-grading-reporter@v1
       env:
         TEST_RESULTS: "${{steps.test.outputs.result}}"
       with:
